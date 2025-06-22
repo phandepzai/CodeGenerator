@@ -17,7 +17,6 @@ namespace BarcodeGenerator
         private TextBox txtInput; // Ô nhập liệu cho dữ liệu mã
         private PictureBox picBarcode1; // Hộp hiển thị mã QR/DataMatrix thứ nhất
         private PictureBox picBarcode2; // Hộp hiển thị mã QR thứ hai (chỉ dùng cho QR Code)
-        private Button btnGenerate; // Nút để tạo mã
         private Button btnSave; // Nút để lưu ảnh mã
         private Button btnReset; // Nút để reset giao diện
         private RadioButton rbQR; // Nút chọn để tạo mã QR
@@ -45,7 +44,7 @@ namespace BarcodeGenerator
         // Khởi tạo các thành phần giao diện
         private void InitializeComponents()
         {
-            this.Text = "Code Generator"; // Tiêu đề của form
+            this.Text = "Tạo mã"; // Tiêu đề của form
             this.ClientSize = new Size(500, 420); // Kích thước form: 500x510 pixel
             this.MinimumSize = new Size(500, 450); // Kích thước tối thiểu của form
             this.Font = new Font("Arial", 12, FontStyle.Regular); // Font chữ mặc định cho form
@@ -53,9 +52,8 @@ namespace BarcodeGenerator
             this.FormBorderStyle = FormBorderStyle.FixedSingle; // Không cho thay đổi kích thước form
             this.MaximizeBox = false; // Ẩn nút phóng to
             this.Icon = new Icon(typeof(MainForm), "icon.ico");
-           
 
-            // Ô nhập liệu
+
             // Ô nhập liệu
             txtInput = new TextBox
             {
@@ -71,7 +69,7 @@ namespace BarcodeGenerator
             rbQR = new RadioButton
             {
                 Text = "QR Code", // Tên hiển thị
-                Font = new Font("Arial", 12, FontStyle.Bold), // Font chữ đậm
+                Font = new Font("Arial", 10, FontStyle.Bold), // Font chữ đậm
                 AutoSize = true, // Tự động điều chỉnh kích thước
                 Checked = true // Mặc định chọn QR Code
             };
@@ -80,30 +78,21 @@ namespace BarcodeGenerator
             rbDataMatrix = new RadioButton
             {
                 Text = "DataMatrix", // Tên hiển thị
-                Font = new Font("Arial", 12, FontStyle.Bold), // Font chữ đậm
+                Font = new Font("Arial", 10, FontStyle.Bold), // Font chữ đậm
                 AutoSize = true // Tự động điều chỉnh kích thước
             };
 
             int radioSpacing = 20; // Khoảng cách giữa hai nút chọn
             int totalRadioWidth = rbQR.Width + rbDataMatrix.Width + radioSpacing; // Tổng chiều rộng của hai nút
-            rbQR.Location = new Point((this.ClientSize.Width - totalRadioWidth) / 2, 80); // Đặt nút QR ở giữa
-            rbDataMatrix.Location = new Point(rbQR.Right + radioSpacing, 80); // Đặt nút DataMatrix bên phải nút QR
-
-            // Nút "Tạo mã"
-            btnGenerate = new Button
-            {
-                Text = "TẠO MÃ", // Tên hiển thị
-                Size = new Size(100, 40), // Kích thước nút
-                Font = new Font("Tahoma", 12, FontStyle.Regular), // Font chữ
-                BackColor = Color.LightSkyBlue // Màu nền
-            };
+            rbQR.Location = new Point((this.ClientSize.Width - totalRadioWidth) / 2, 70); // Đặt nút QR ở giữa
+            rbDataMatrix.Location = new Point(rbQR.Right + radioSpacing, 70); // Đặt nút DataMatrix bên phải nút QR
 
             // Nút "Lưu ảnh"
             btnSave = new Button
             {
                 Text = "LƯU ẢNH", // Tên hiển thị
                 Size = new Size(100, 40), // Kích thước nút
-                Font = new Font("Tahoma", 12, FontStyle.Regular), // Font chữ
+                Font = new Font("Segoe UI", 10, FontStyle.Regular), // Font chữ
                 BackColor = Color.LightGreen // Màu nền
             };
 
@@ -112,31 +101,29 @@ namespace BarcodeGenerator
             {
                 Text = "RESET", // Tên hiển thị
                 Size = new Size(100, 40), // Kích thước nút
-                Font = new Font("Tahoma", 12, FontStyle.Regular), // Font chữ
+                Font = new Font("Segoe UI", 10, FontStyle.Regular), // Font chữ
                 BackColor = Color.Moccasin // Màu nền
             };
 
             int buttonSpacing = 10; // Khoảng cách giữa các nút
-            int totalButtonWidth = btnGenerate.Width + btnSave.Width + btnReset.Width + 2 * buttonSpacing; // Tổng chiều rộng các nút
-            btnGenerate.Location = new Point((this.ClientSize.Width - totalButtonWidth) / 2, 130); // Đặt nút "Tạo mã" ở giữa
-            btnSave.Location = new Point(btnGenerate.Right + buttonSpacing, 130); // Đặt nút "Lưu ảnh" bên phải
-            btnReset.Location = new Point(btnSave.Right + buttonSpacing, 130); // Đặt nút "Reset" bên phải tiếp theo
+            int totalButtonWidth = btnSave.Width + btnReset.Width + buttonSpacing; // Tổng chiều rộng các nút
+            btnSave.Location = new Point((this.ClientSize.Width - totalButtonWidth) / 2, 100); // Đặt nút "Lưu ảnh" ở giữa
+            btnReset.Location = new Point(btnSave.Right + buttonSpacing, 100); // Đặt nút "Reset" bên phải
 
-            // Hộp hiển thị mã thứ nhất
             // Hộp hiển thị mã thứ nhất
             picBarcode1 = new PictureBox
             {
-                BorderStyle = BorderStyle.FixedSingle,
+                BorderStyle = BorderStyle.None,
                 SizeMode = PictureBoxSizeMode.Zoom,
-                Size = new Size(150, 150) // Giảm từ 200x200 xuống 150x150
+                Size = new Size(150, 150)
             };
 
             // Hộp hiển thị mã thứ hai
             picBarcode2 = new PictureBox
             {
-                BorderStyle = BorderStyle.FixedSingle,
+                BorderStyle = BorderStyle.None,
                 SizeMode = PictureBoxSizeMode.Zoom,
-                Size = new Size(150, 150), // Giảm từ 200x200 xuống 150x150
+                Size = new Size(150, 150),
                 Visible = false
             };
 
@@ -144,64 +131,82 @@ namespace BarcodeGenerator
             lblBarcode1 = new Label
             {
                 Text = "",
-                Font = new Font("Arial", 10, FontStyle.Bold),
+                Font = new Font("Arial", 12, FontStyle.Bold),
                 AutoSize = false,
-                Size = new Size(150, 30), // Điều chỉnh chiều rộng cho phù hợp
-                TextAlign = ContentAlignment.MiddleCenter
+                Size = new Size(150, 60), // Tăng chiều cao lên 60
+                MaximumSize = new Size(150, 0), // Chiều rộng cố định 150, chiều cao không giới hạn
+                TextAlign = ContentAlignment.TopCenter,
+                BackColor = Color.Transparent,
             };
 
             // Nhãn hiển thị dữ liệu mã thứ hai
             lblBarcode2 = new Label
             {
                 Text = "",
-                Font = new Font("Arial", 10, FontStyle.Bold),
+                Font = new Font("Arial", 12, FontStyle.Bold),
                 AutoSize = false,
-                Size = new Size(150, 30), // Điều chỉnh chiều rộng cho phù hợp
-                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(150, 60), // Tăng chiều cao lên 60
+                MaximumSize = new Size(150, 0), // Chiều rộng cố định 150, chiều cao không giới hạn
+                TextAlign = ContentAlignment.TopCenter,
+                BackColor = Color.Transparent,
                 Visible = false
             };
 
             // Nhãn hiển thị đường dẫn lưu
             lblSavePath = new Label
             {
-                Text = string.Empty, // Chưa có nội dung ban đầu
-                Font = new Font("Arial", 8), // Font chữ nhỏ
-                ForeColor = Color.Green, // Màu chữ xanh
-                AutoSize = false, // Không tự động điều chỉnh kích thước
-                Size = new Size(350, 60), // Kích thước đủ lớn để chứa 3 dòng
-                TextAlign = ContentAlignment.MiddleLeft // Căn trái
+                Text = string.Empty,
+                Font = new Font("Arial", 8),
+                ForeColor = Color.Green,
+                AutoSize = false,
+                Size = new Size(350, 60),
+                TextAlign = ContentAlignment.MiddleLeft
             };
 
             // Nhãn hiển thị tên tác giả
             lblAuthor = new Label
             {
-                Text = "Nông Văn Phấn", // Tên tác giả
-                Font = new Font("Arial", 8), // Font chữ nhỏ
-                ForeColor = Color.LightSlateGray, // Màu chữ xám nhạt
-                AutoSize = true // Tự động điều chỉnh kích thước theo nội dung
+                Text = "Nông Văn Phấn",
+                Font = new Font("Arial", 8),
+                ForeColor = Color.Silver,
+                AutoSize = true
             };
 
             // Thêm tất cả điều khiển vào form
             this.Controls.AddRange(new Control[] {
                 txtInput, rbQR, rbDataMatrix,
-                btnGenerate, btnSave, btnReset,
+                btnSave, btnReset,
                 picBarcode1, picBarcode2,
                 lblBarcode1, lblBarcode2,
                 lblSavePath, lblAuthor
             });
 
-            UpdateBarcodeLayout(); // Cập nhật vị trí các thành phần
-            this.Resize += (s, e) => UpdateBarcodeLayout(); // Cập nhật lại khi thay đổi kích thước form
+            UpdateBarcodeLayout();
+            this.Resize += (s, e) => UpdateBarcodeLayout();
+        }
+        private void PicBarcode_Paint(object sender, PaintEventArgs e)
+        {
+            if (sender is PictureBox pb)
+            {
+                // Màu xám cho viền  
+                Color borderColor = Color.Silver; // Hoặc Color.Gray, Color.DarkGray tùy ý  
+                int borderWidth = 1; // Độ dày của viền  
 
+                // Vẽ hình chữ nhật làm viền  
+                using (Pen pen = new Pen(borderColor, borderWidth))
+                {
+                    e.Graphics.DrawRectangle(pen, 0, 0, pb.Width - 1, pb.Height - 1);
+                }
+            }
         }
 
         // Cập nhật vị trí các thành phần giao diện
         private void UpdateBarcodeLayout()
         {
-            int barcodeWidth = 150; // Giảm từ 200 xuống 150
-            int barcodeHeight = 150; // Giảm từ 200 xuống 150
-            int labelHeight = 30;
-            int startY = 190; // Giữ nguyên vị trí Y, có thể điều chỉnh nếu cần
+            int barcodeWidth = 150;
+            int barcodeHeight = 150;
+            int labelHeight = 60; // Xóa hoặc bỏ qua dòng này
+            int startY = 190;
 
             if (rbQR.Checked)
             {
@@ -267,7 +272,7 @@ namespace BarcodeGenerator
             if (lblSavePath != null)
             {
                 lblSavePath.Size = new Size(400, 45);
-                lblSavePath.Location = new Point(5, 370);
+                lblSavePath.Location = new Point(25, 135);
             }
 
             if (lblAuthor != null)
@@ -279,11 +284,14 @@ namespace BarcodeGenerator
         // Thiết lập sự kiện cho các nút
         private void SetupEvents()
         {
-            btnGenerate.Click += BtnGenerate_Click; // Sự kiện khi nhấn nút "Tạo mã"
-            btnSave.Click += BtnSave_Click; // Sự kiện khi nhấn nút "Lưu ảnh"
-            btnReset.Click += BtnReset_Click; // Sự kiện khi nhấn nút "Reset"
-            rbQR.CheckedChanged += BarcodeTypeChanged; // Sự kiện khi thay đổi lựa chọn QR
-            rbDataMatrix.CheckedChanged += BarcodeTypeChanged; // Sự kiện khi thay đổi lựa chọn DataMatrix
+            txtInput.TextChanged += TxtInput_TextChanged; // Thêm sự kiện TextChanged cho txtInput
+            btnSave.Click += BtnSave_Click;
+            btnReset.Click += BtnReset_Click;
+            rbQR.CheckedChanged += BarcodeTypeChanged;
+            rbDataMatrix.CheckedChanged += BarcodeTypeChanged;
+            // Thêm sự kiện Paint cho các PictureBox
+            picBarcode1.Paint += PicBarcode_Paint;
+            picBarcode2.Paint += PicBarcode_Paint;
         }
 
         // Xử lý khi thay đổi loại mã (QR/DataMatrix)
@@ -304,17 +312,48 @@ namespace BarcodeGenerator
             picBarcode2.Visible = rbQR.Checked;
             lblBarcode2.Visible = rbQR.Checked;
             UpdateBarcodeLayout();
-            this.Invalidate(); // Buộc làm mới giao diện
-            this.Refresh(); // Đảm bảo giao diện được vẽ lại
+            this.Invalidate();
+            this.Refresh();
             Console.WriteLine($"BarcodeTypeChanged - rbQR.Checked: {rbQR.Checked}, lblBarcode2.Visible: {lblBarcode2.Visible}");
+
+            // Generate barcode immediately after type change if input is not empty
+            if (!string.IsNullOrEmpty(txtInput.Text))
+            {
+                GenerateBarcode();
+            }
         }
-        // Xử lý khi nhấn nút "Tạo mã"
-        private void BtnGenerate_Click(object sender, EventArgs e)
+
+        // Xử lý khi văn bản trong ô nhập liệu thay đổi
+        private void TxtInput_TextChanged(object sender, EventArgs e)
+        {
+            GenerateBarcode();
+        }
+
+        // Hàm tạo mã vạch (tách ra từ BtnGenerate_Click)
+        private void GenerateBarcode()
         {
             if (string.IsNullOrEmpty(txtInput.Text))
             {
-                MessageBox.Show("Vui lòng nhập dữ liệu!", "Cảnh báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // Clear barcodes if input is empty
+                if (generatedBarcode1 != null)
+                {
+                    generatedBarcode1.Dispose();
+                    generatedBarcode1 = null;
+                }
+                if (generatedBarcode2 != null)
+                {
+                    generatedBarcode2.Dispose();
+                    generatedBarcode2 = null;
+                }
+                picBarcode1.Image = null;
+                picBarcode2.Image = null;
+                lblBarcode1.Text = "";
+                lblBarcode2.Text = "";
+                picBarcode2.Visible = rbQR.Checked;
+                lblBarcode2.Visible = rbQR.Checked;
+                UpdateBarcodeLayout();
+                this.Invalidate();
+                this.Refresh();
                 return;
             }
 
@@ -335,8 +374,8 @@ namespace BarcodeGenerator
                     Format = format,
                     Options = new EncodingOptions
                     {
-                        Height = 150, // Giảm từ 200 xuống 150
-                        Width = 150,  // Giảm từ 200 xuống 150
+                        Height = 150,
+                        Width = 150,
                         Margin = 2
                     }
                 };
@@ -349,6 +388,7 @@ namespace BarcodeGenerator
                     picBarcode1.Image = generatedBarcode1;
                     lblBarcode1.Text = data1;
                     lblBarcode1.Visible = true;
+                    lblBarcode1.Refresh(); // Thêm dòng này
 
                     var data2 = baseData + "#2";
                     var pixelData2 = writer.Write(data2);
@@ -357,6 +397,7 @@ namespace BarcodeGenerator
                     lblBarcode2.Text = data2;
                     picBarcode2.Visible = true;
                     lblBarcode2.Visible = true;
+                    //lblBarcode2.Refresh(); // Thêm dòng này
 
                     Console.WriteLine($"lblBarcode2.Text: {lblBarcode2.Text}, Visible: {lblBarcode2.Visible}");
                 }
@@ -367,6 +408,8 @@ namespace BarcodeGenerator
                     picBarcode1.Image = generatedBarcode1;
                     lblBarcode1.Text = baseData;
                     lblBarcode1.Visible = true;
+                    //lblBarcode1.Refresh(); // Thêm dòng này
+
                     picBarcode2.Visible = false;
                     lblBarcode2.Visible = false;
                     lblBarcode2.Text = "";
@@ -386,28 +429,28 @@ namespace BarcodeGenerator
         // Xử lý khi nhấn nút "Lưu ảnh"
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            if (generatedBarcode1 == null) // Kiểm tra xem đã tạo mã chưa
+            if (generatedBarcode1 == null)
             {
                 MessageBox.Show("Chưa có mã nào được tạo!", "Cảnh báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning); // Hiển thị thông báo
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                if (rbQR.Checked && generatedBarcode2 != null) // Nếu là QR Code và có mã thứ hai
+                if (rbQR.Checked && generatedBarcode2 != null)
                 {
-                    SaveQRPair(); // Lưu cả hai mã
+                    SaveQRPair();
                 }
-                else // Nếu là DataMatrix hoặc chỉ có một mã
+                else
                 {
-                    SaveSingleBarcode(); // Lưu một mã
+                    SaveSingleBarcode();
                 }
             }
-            catch (Exception ex) // Bắt lỗi nếu có
+            catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi lưu: {ex.Message}", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error); // Hiển thị thông báo lỗi
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -420,10 +463,10 @@ namespace BarcodeGenerator
                 {
                     string baseName = MakeValidFileName(txtInput.Text.Trim());
                     string path1 = Path.Combine(fbd.SelectedPath, $"{baseName}#1.png");
-                    string path2 = Path.Combine(fbd.SelectedPath, $"{ baseName}#2.png");
+                    string path2 = Path.Combine(fbd.SelectedPath, $"{baseName}#2.png");
 
-            SaveWithText(generatedBarcode1, lblBarcode1.Text, path1);
-                    if (generatedBarcode2 != null) // Kiểm tra trước khi lưu
+                    SaveWithText(generatedBarcode1, lblBarcode1.Text, path1);
+                    if (generatedBarcode2 != null)
                     {
                         SaveWithText(generatedBarcode2, lblBarcode2.Text, path2);
                         lblSavePath.Text = $"Đã lưu:\n{path1}\n{path2}";
@@ -439,16 +482,16 @@ namespace BarcodeGenerator
         // Lưu một mã duy nhất (DataMatrix)
         private void SaveSingleBarcode()
         {
-            using (SaveFileDialog sfd = new SaveFileDialog()) // Hiển thị hộp thoại lưu tệp
+            using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                string fileName = MakeValidFileName(txtInput.Text.Trim()); // Tạo tên tệp hợp lệ
-                sfd.FileName = fileName; // Đặt tên mặc định
-                sfd.Filter = "PNG Image|*.png"; // Bộ lọc định dạng PNG
+                string fileName = MakeValidFileName(txtInput.Text.Trim());
+                sfd.FileName = fileName;
+                sfd.Filter = "PNG Image|*.png";
 
-                if (sfd.ShowDialog() == DialogResult.OK) // Nếu người dùng chọn OK
+                if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    SaveWithText(generatedBarcode1, lblBarcode1.Text, sfd.FileName); // Lưu mã với văn bản
-                    lblSavePath.Text = "Đã lưu: " + sfd.FileName; // Hiển thị đường dẫn đã lưu
+                    SaveWithText(generatedBarcode1, lblBarcode1.Text, sfd.FileName);
+                    lblSavePath.Text = "Đã lưu: " + sfd.FileName;
                 }
             }
         }
@@ -484,18 +527,19 @@ namespace BarcodeGenerator
             {
                 if (picBarcode1.Image != null)
                 {
-                    picBarcode1.Image.Dispose(); // Giải phóng tài nguyên
+                    picBarcode1.Image.Dispose();
                     picBarcode1.Image = null;
                 }
                 if (picBarcode2.Image != null)
                 {
-                    picBarcode2.Image.Dispose(); // Giải phóng tài nguyên
+                    picBarcode2.Image.Dispose();
                     picBarcode2.Image = null;
                 }
 
                 lblBarcode1.Text = "";
                 lblBarcode2.Text = "";
-                txtInput.Text = "";             // Xóa nội dung ô nhập liệu
+                txtInput.Text = "";
+                txtInput.Focus();
 
                 if (generatedBarcode1 != null)
                 {
@@ -509,9 +553,6 @@ namespace BarcodeGenerator
                 }
 
                 lblSavePath.Text = string.Empty;
-
-                MessageBox.Show("Đã reset thành công!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -523,15 +564,15 @@ namespace BarcodeGenerator
         // Tạo tên tệp hợp lệ từ dữ liệu nhập
         private string MakeValidFileName(string name)
         {
-            string invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars())); // Lấy ký tự không hợp lệ
-            string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars); // Biểu thức thay thế
-            return Regex.Replace(name, invalidRegStr, "_"); // Thay ký tự không hợp lệ bằng "_"
+            string invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
+            string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
+            return Regex.Replace(name, invalidRegStr, "_");
         }
 
         // Đặt văn bản gợi ý cho ô nhập liệu
         private void SetPlaceholderText(TextBox textBox, string placeholder)
         {
-            SendMessage(textBox.Handle, EM_SETCUEBANNER, 0, placeholder); // Gọi API để hiển thị gợi ý
+            SendMessage(textBox.Handle, EM_SETCUEBANNER, 0, placeholder);
         }
 
         // Chuyển dữ liệu pixel thành mã QR hình tròn
@@ -553,7 +594,7 @@ namespace BarcodeGenerator
                     for (int x = 0; x < pixelData.Width; x++)
                     {
                         int index = (y * pixelData.Width + x) * 4;
-                        if (index + 3 < pixelData.Pixels.Length && pixelData.Pixels[index] == 0) // Kiểm tra đầy đủ
+                        if (index + 3 < pixelData.Pixels.Length && pixelData.Pixels[index] == 0)
                         {
                             g.FillEllipse(Brushes.Black, x - dotSize / 2, y - dotSize / 2, dotSize, dotSize);
                         }

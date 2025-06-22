@@ -5,9 +5,10 @@ D:\DEV\BarcodeGenerator\BarcodeGenerator\bin\Release\zxing.dll
 D:\DEV\BarcodeGenerator\BarcodeGenerator\bin\Release\zxing.presentation.dll
 D:\DEV\BarcodeGenerator\BarcodeGenerator\bin\Release\zxing.xml
 D:\DEV\BarcodeGenerator\BarcodeGenerator\bin\Release\zxing.presentation.xml
+D:\DEV\BarcodeGenerator\BarcodeGenerator\obj\Release\BarcodeGenerator.csproj.AssemblyReference.cache
 D:\DEV\BarcodeGenerator\BarcodeGenerator\obj\Release\BarcodeGenerator.Properties.Resources.resources
 D:\DEV\BarcodeGenerator\BarcodeGenerator\obj\Release\BarcodeGenerator.csproj.GenerateResource.cache
 D:\DEV\BarcodeGenerator\BarcodeGenerator\obj\Release\BarcodeGenerator.csproj.CoreCompileInputs.cache
-D:\DEV\BarcodeGenerator\BarcodeGenerator\obj\Release\BarcodeGenerator.csproj.CopyComplete
+D:\DEV\BarcodeGenerator\BarcodeGenerator\obj\Release\BarcodeG.154EB750.Up2Date
 D:\DEV\BarcodeGenerator\BarcodeGenerator\obj\Release\BarcodeGenerator.exe
 D:\DEV\BarcodeGenerator\BarcodeGenerator\obj\Release\BarcodeGenerator.pdb

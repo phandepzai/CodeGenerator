@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BarcodeGenerator")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("CodeGenerator")]
+[assembly: AssemblyDescription("Tool tạo mã code")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BarcodeGenerator")]
-[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyCompany("Nông Văn Phấn")]
+[assembly: AssemblyProduct("CodeGenerator")]
+[assembly: AssemblyCopyright("Copyright © 2025 by Nông Văn Phấn")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
