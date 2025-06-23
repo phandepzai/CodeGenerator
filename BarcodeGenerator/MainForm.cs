@@ -131,7 +131,7 @@ namespace BarcodeGenerator
             lblBarcode1 = new Label
             {
                 Text = "",
-                Font = new Font("Arial", 12, FontStyle.Bold),
+                Font = new Font("Arial", 11, FontStyle.Bold),
                 AutoSize = false,
                 Size = new Size(150, 60), // Tăng chiều cao lên 60
                 MaximumSize = new Size(150, 0), // Chiều rộng cố định 150, chiều cao không giới hạn
@@ -143,7 +143,7 @@ namespace BarcodeGenerator
             lblBarcode2 = new Label
             {
                 Text = "",
-                Font = new Font("Arial", 12, FontStyle.Bold),
+                Font = new Font("Arial", 11, FontStyle.Bold),
                 AutoSize = false,
                 Size = new Size(150, 60), // Tăng chiều cao lên 60
                 MaximumSize = new Size(150, 0), // Chiều rộng cố định 150, chiều cao không giới hạn
